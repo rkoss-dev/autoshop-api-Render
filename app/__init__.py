@@ -33,7 +33,7 @@ def create_app(config_class="config.DevelopmentConfig"):
         swag["info"]["title"] = "Auto Shop API"
 
         # UPDATE THESE FOR PRODUCTION
-        swag["host"] = "your-app-name.onrender.com"
+        swag["host"] = "https://autoshop-api-render.onrender.com"
         swag["schemes"] = ["https"]
 
         swag["securityDefinitions"] = {
