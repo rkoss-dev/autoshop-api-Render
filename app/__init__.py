@@ -25,15 +25,12 @@ def create_app(config_class="config.DevelopmentConfig"):
     app.register_blueprint(inventory_bp, url_prefix="/inventory")
     app.register_blueprint(service_ticket_bp, url_prefix="/service-tickets")
 
-    # --- SWAGGER SETUP ---
     @app.route("/spec")
     def spec():
         swag = swagger(app)
         swag["info"]["version"] = "1.0"
         swag["info"]["title"] = "Auto Shop API"
-
-        # UPDATE THESE FOR PRODUCTION
-        swag["host"] = "https://autoshop-api-render.onrender.com"
+        swag["host"] = "autoshop-api-render.onrender.com"
         swag["schemes"] = ["https"]
 
         swag["securityDefinitions"] = {
