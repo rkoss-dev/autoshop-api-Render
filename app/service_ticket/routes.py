@@ -136,13 +136,17 @@ def assign_mechanic(ticket_id, mechanic_id):
       200:
         description: Mechanic assigned
         schema:
-          $ref: '#/definitions/MessageResponse'
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Mechanic assigned."
     """
     ticket = ServiceTicket.query.get_or_404(ticket_id)
     mechanic = Mechanic.query.get_or_404(mechanic_id)
 
     if mechanic not in ticket.mechanics:
-        ticket.mechanics.append(mechanic)  # This is where the magic happens!
+        ticket.mechanics.append(mechanic)
         db.session.commit()
         return jsonify({"message": "Mechanic assigned."}), 200
 
@@ -172,7 +176,11 @@ def remove_mechanic(ticket_id, mechanic_id):
       200:
         description: Mechanic removed
         schema:
-          $ref: '#/definitions/MessageResponse'
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Mechanic removed."
     """
     ticket = ServiceTicket.query.get_or_404(ticket_id)
     mechanic = Mechanic.query.get_or_404(mechanic_id)
@@ -185,7 +193,7 @@ def remove_mechanic(ticket_id, mechanic_id):
     return jsonify({"message": "Mechanic not assigned."}), 400
 
 
-@service_ticket_bp.route("//edit", methods=["PUT"])
+@service_ticket_bp.route("/<int:ticket_id>/edit", methods=["PUT"])
 def edit_ticket_mechanics(ticket_id):
     """
     Bulk Edit Mechanics
@@ -263,7 +271,11 @@ def add_part(ticket_id, part_id):
       200:
         description: Part added
         schema:
-          $ref: '#/definitions/MessageResponse'
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Part 'Spark Plug' added to Ticket #1."
     """
     ticket = ServiceTicket.query.get_or_404(ticket_id)
     part = Inventory.query.get_or_404(part_id)

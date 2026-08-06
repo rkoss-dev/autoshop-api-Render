@@ -186,7 +186,7 @@ def my_tickets(customer_id):
     return service_tickets_schema.jsonify(tickets), 200
 
 
-@customer_bp.route("/", methods=["PUT"])
+@customer_bp.route("/<int:id>", methods=["PUT"])
 @token_required
 def update_customer(customer_id, id):
     """
@@ -233,7 +233,7 @@ def update_customer(customer_id, id):
         return jsonify({"message": str(e)}), 400
 
 
-@customer_bp.route("/", methods=["DELETE"])
+@customer_bp.route("/<int:id>", methods=["DELETE"])
 @token_required
 def delete_customer(customer_id, id):
     """

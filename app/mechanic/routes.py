@@ -121,7 +121,11 @@ def delete_mechanic(id):
       200:
         description: Mechanic successfully deleted
         schema:
-          $ref: '#/definitions/MessageResponse'
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Mechanic 1 deleted."
     """
     mechanic = Mechanic.query.get_or_404(id)
     db.session.delete(mechanic)

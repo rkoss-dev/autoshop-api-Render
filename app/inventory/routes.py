@@ -77,7 +77,7 @@ def get_parts():
     return inventories_schema.jsonify(parts), 200
 
 
-@inventory_bp.route("/", methods=["PUT"])
+@inventory_bp.route("/<int:id>", methods=["PUT"])
 def update_part(id):
     """
     Update a Part
@@ -110,7 +110,7 @@ def update_part(id):
         return jsonify({"message": str(e)}), 400
 
 
-@inventory_bp.route("/", methods=["DELETE"])
+@inventory_bp.route("/<int:id>", methods=["DELETE"])
 def delete_part(id):
     """
     Delete a Part
@@ -127,7 +127,11 @@ def delete_part(id):
       200:
         description: Part successfully deleted
         schema:
-          $ref: '#/definitions/MessageResponse'
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Part 'Premium Oil Filter' successfully deleted."
     """
     part = Inventory.query.get_or_404(id)
     db.session.delete(part)
